@@ -113,6 +113,10 @@ Common issues and solutions:
 * **AI Assistant Issues:** Verify the `OPENAI_API_KEY` is correctly set in environment variables and the key is valid.
 * **Wallet Connection Problems:** Confirm `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` is set. Note potential WalletConnect allowlist issues in certain preview environments; try MetaMask or an injected wallet if issues persist.
 
+## Smart Contracts
+ERC20-0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8
+Escrow-0xf8e81D47203A594245E36C48e151709F0C19fBe8
+
 ## Resources
 
 * [Celo Documentation](https://docs.celo.org)
