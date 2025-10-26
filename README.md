@@ -114,7 +114,7 @@ Common issues and solutions:
 * **Wallet Connection Problems:** Confirm `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` is set. Note potential WalletConnect allowlist issues in certain preview environments; try MetaMask or an injected wallet if issues persist.
 
 ## Smart Contracts
-ERC20-[0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8]([https://alfajores.celoscan.io/address/0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8](https://celo-alfajores.blockscout.com/address/0xf8e81D47203A594245E36C48e151709F0C19fBe8))
+ERC20-[0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8](https://celo-alfajores.blockscout.com/address/0xf8e81D47203A594245E36C48e151709F0C19fBe8)
 Escrow-[0xf8e81D47203A594245E36C48e151709F0C19fBe8](https://www.google.com/search?q=https://alfajores.celoscan.io/address/0xf8e81D47203A594245E36C48e151709F0C19fBe8)
 
 ## Resources
