@@ -1,339 +1,137 @@
-# CeloSave - AI-Powered Savings on Celo
+# CeloSave: AI-Powered Savings Assistant on Celo
 
-A mobile-first, AI-powered savings assistant built for the Celo blockchain ecosystem. CeloSave helps users set and achieve savings goals with personalized recommendations, ultra-low fees, and DeFi yield opportunities.
+## Overview
 
-## Features
+CeloSave is a mobile-first savings application developed for the Celo blockchain ecosystem. It leverages Artificial Intelligence to provide users with personalized financial guidance, helping them establish and achieve savings goals effectively. The application integrates seamlessly with the Celo network, offering features such as ultra-low transaction fees, carbon-negative operations, and access to decentralized finance (DeFi) yield opportunities.
 
-### Core Features
-- **Wallet Integration**: Connect with MiniPay, MetaMask, Valora, or WalletConnect
-- **Savings Goals**: Create, track, and manage multiple savings goals
-- **Persistent Storage**: Supabase PostgreSQL database for reliable data storage
-- **Progress Tracking**: Visual progress bars, deadlines, and saving streaks
-- **AI Assistant**: Conversational AI powered by OpenAI for personalized advice
+## Key Features
 
-### Celo Blockchain Benefits
-- **Ultra-Low Fees**: Sub-penny transaction costs (< $0.01)
-- **Carbon-Negative**: Environmentally friendly blockchain
-- **Mobile-First**: Optimized for 10M+ MiniPay users
-- **Multi-Currency**: Support for cUSD, cEUR, cREAL stablecoins
-- **Fast Transactions**: ~5 second confirmation times
+* **Wallet Integration**: Supports connection via MiniPay, MetaMask, Valora, and WalletConnect.
+* **Savings Goal Management**: Enables users to create, monitor, and manage multiple savings objectives.
+* **Dual Storage Options**: Offers flexibility with data storage either via Supabase (PostgreSQL) or directly on the Celo blockchain using the `CeloSave` smart contract.
+* **Progress Visualization**: Includes visual progress bars, deadline tracking, and savings streak monitoring.
+* **AI Financial Assistant**: Integrates OpenAI's GPT models via the Vercel AI SDK to provide personalized savings advice and insights.
+* **DeFi Yield Integration**: Provides visibility into potential yield opportunities from Celo DeFi protocols like Moola Market and Ubeswap.
+* **Freelance Escrow Feature**: Includes a secure, smart contract-based escrow system for freelance payments on Celo.
 
-### DeFi Integration
-- **Moola Market**: Lending yields (8.2% APY on cUSD)
-- **Ubeswap**: Liquidity pool rewards (up to 12.5% APY)
-- **Yield Comparison**: Easy comparison of DeFi opportunities
-- **Risk Assessment**: Clear risk levels for each opportunity
+## Technical Stack
 
-### AI Capabilities
-- Analyze savings behavior and patterns
-- Calculate personalized savings recommendations
-- Explain Celo blockchain features
-- Provide DeFi yield insights
-- Celebrate milestones and achievements
-
-## Tech Stack
-
-- **Frontend**: Next.js 15, React 19, TypeScript
-- **Blockchain**: Celo (Alfajores Testnet), Wagmi, Viem
-- **Smart Contracts**: Solidity 0.8.20, Hardhat
-- **Database**: Supabase (PostgreSQL)
-- **AI**: Vercel AI SDK, OpenAI GPT-4o-mini
-- **Styling**: Tailwind CSS v4, shadcn/ui
-- **State Management**: React Hooks
+* **Frontend**: Next.js 15, React 19, TypeScript
+* **Blockchain Interaction**: Wagmi, Viem
+* **Smart Contracts**: Solidity 0.8.20, Hardhat
+* **Database**: Supabase (PostgreSQL)
+* **AI Integration**: Vercel AI SDK, OpenAI GPT-4o-mini
+* **UI & Styling**: Tailwind CSS v4, shadcn/ui, Lucide React Icons
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18+
-- A Celo wallet (MiniPay, MetaMask, or Valora)
-- OpenAI API key ([Get one here](https://platform.openai.com/api-keys))
-- Supabase account ([Sign up here](https://supabase.com))
 
-### Installation
+* Node.js (v18 or higher)
+* npm or compatible package manager (e.g., yarn, pnpm)
+* A Celo-compatible wallet (e.g., MiniPay, MetaMask configured for Celo, Valora)
+* OpenAI API Key
+* Supabase Account and Project Credentials
+* WalletConnect Project ID
 
-1. Clone the repository
+### Installation & Setup
 
-2. Install dependencies:
-   \`\`\`bash
-   npm install
-   \`\`\`
+1.  **Clone the Repository:**
+    ```bash
+    git clone <repository-url>
+    cd celosave
+    ```
 
-3. Set up environment variables in the **Vars** section of the v0 sidebar:
-   
-   **Required:**
-   - `OPENAI_API_KEY` - Your OpenAI API key for the AI assistant
-   - `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` - Your WalletConnect project ID
-   
-   **Supabase (Auto-configured if using v0 integration):**
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `SUPABASE_SERVICE_ROLE_KEY`
+2.  **Install Dependencies:**
+    ```bash
+    npm install
+    ```
 
-4. Set up the database:
-   - The SQL migration script in `scripts/001_create_savings_goals_table.sql` will create the necessary tables
-   - Run it directly from v0 or execute it in your Supabase SQL editor
+3.  **Configure Environment Variables:**
+    Create a `.env.local` file in the project root and add the following required variables:
+    ```env
+    # Required for AI Assistant
+    OPENAI_API_KEY=sk-...
 
-5. Run the development server:
-   \`\`\`bash
-   npm run dev
-   \`\`\`
+    # Required for WalletConnect
+    NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=...
 
-6. Open [http://localhost:3000](http://localhost:3000)
+    # Required for Supabase integration
+    NEXT_PUBLIC_SUPABASE_URL=[https://your-project.supabase.co](https://your-project.supabase.co)
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+    SUPABASE_SERVICE_ROLE_KEY=your-service-role-key # If needed
 
-## Deployment Modes
+    # Optional: For smart contract deployment (keep out of version control)
+    PRIVATE_KEY=your_wallet_private_key
+    CELOSCAN_API_KEY=your_celoscan_api_key
+    ```
+    *(Refer to `SETUP.md` for details on obtaining these keys)*
 
-CeloSave supports two modes of operation:
+4.  **Database Setup (Supabase Mode):**
+    Execute the SQL script located at `scripts/001_create_savings_goals_table.sql` within your Supabase project's SQL editor to create the `savings_goals` table and configure Row Level Security (RLS) policies.
 
-### 1. Supabase Mode (Default)
-- Data stored in Supabase PostgreSQL database
-- No blockchain transactions required
-- Perfect for testing and development
-- Instant transactions, no gas fees
+5.  **Run Development Server:**
+    ```bash
+    npm run dev
+    ```
+    Access the application at `http://localhost:3000`.
 
-### 2. Blockchain Mode (Production)
-- Real transactions on Celo blockchain
-- Smart contract deployed on Alfajores testnet
-- Requires testnet CELO for gas fees
-- True decentralized savings with on-chain verification
+## Operating Modes
 
-**The app automatically detects which mode to use based on whether a smart contract is deployed.**
+CeloSave can operate in two distinct modes:
 
-## Smart Contract Deployment
+1.  **Supabase Mode (Default):** Utilizes Supabase for data persistence. Goal creation, updates, and deletions are handled via API calls to Supabase. This mode requires no blockchain interactions for core savings goal management and incurs no gas fees. Ideal for rapid development and testing.
+2.  **Blockchain Mode:** Interacts directly with the deployed `CeloSave` smart contract on the Celo network (e.g., Alfajores testnet). All savings operations (create, save, withdraw, delete) are executed as blockchain transactions, requiring gas fees (paid in CELO) and involving real cUSD transfers (on testnet). This mode offers decentralized data storage and verification.
 
-To enable real blockchain transactions, deploy the CeloSave smart contract:
+The application automatically selects the mode based on the presence of a valid contract address in `lib/celo/config.ts`. If the address is the zero address (`0x0...0`), Supabase mode is used.
 
-### Quick Start
+## Smart Contract Deployment (Blockchain Mode)
 
-1. **Get Testnet Funds:**
-   - Visit [Celo Faucet](https://faucet.celo.org/alfajores)
-   - Get testnet CELO for gas fees
-   - Swap some CELO for cUSD on [Ubeswap](https://app.ubeswap.org/)
+To enable Blockchain Mode, deploy the `CeloSave.sol` contract:
 
-2. **Set Up Deployment:**
-   \`\`\`bash
-   # Add your wallet private key to .env.local
-   PRIVATE_KEY=your_private_key_here
-   \`\`\`
+1.  **Obtain Testnet Funds:** Secure testnet CELO (for gas) and cUSD (for testing) from the [Celo Alfajores Faucet](https://faucet.celo.org/alfajores) and potentially [Ubeswap](https://app.ubeswap.org/).
+2.  **Configure Private Key:** Add your wallet's private key to the `PRIVATE_KEY` variable in `.env.local`. **Ensure `.env.local` is listed in your `.gitignore` file.**
+3.  **Run Deployment Script:** Execute the deployment command using Hardhat:
+    ```bash
+    npx hardhat run scripts/deploy-contract.js --network alfajores
+    ```
+    *(Confirm the script name, e.g., `deploy-celosave.js` or `deploy-contract.js`)*
+4.  **Update Configuration:** Copy the deployed contract address provided in the script output and update the `alfajores` value within `CELOSAVE_CONTRACT_ADDRESS` in `lib/celo/config.ts`.
+5.  **Restart Application:** Relaunch the development server (`npm run dev`).
 
-3. **Deploy Contract:**
-   \`\`\`bash
-   npx hardhat run scripts/deploy-contract.js --network alfajores
-   \`\`\`
-
-4. **Update Config:**
-   Copy the deployed address to `lib/celo/config.ts`:
-   \`\`\`typescript
-   export const CELOSAVE_CONTRACT_ADDRESS = {
-     alfajores: "0xYourDeployedAddress",
-   }
-   \`\`\`
-
-5. **Restart App:**
-   The app will automatically switch to blockchain mode!
-
-📖 **Full deployment guide:** See [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)
-
-## Database Schema
-
-The app uses Supabase with the following schema:
-
-### `savings_goals` table
-- `id` (uuid, primary key)
-- `user_address` (text) - Wallet address of the goal owner
-- `name` (text) - Goal name
-- `target_amount` (numeric) - Target amount in cUSD
-- `current_amount` (numeric) - Current saved amount
-- `deadline` (bigint) - Unix timestamp deadline
-- `created_at` (bigint) - Unix timestamp of creation
-- `completed` (boolean) - Whether goal is completed
-- `created_at_timestamp` (timestamptz) - Database timestamp
-
-## Environment Variables
-
-### Required Variables
-
-Add these in the **Vars** section of the v0 in-chat sidebar:
-
-1. **OPENAI_API_KEY**
-   - Get from: https://platform.openai.com/api-keys
-   - Used for: AI assistant chat functionality
-   - Example: `sk-proj-...`
-
-2. **NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID**
-   - Get from: https://cloud.reown.com
-   - Used for: WalletConnect integration
-   - Example: `a1b2c3d4e5f6...`
-
-### Supabase Variables (Auto-configured)
-
-If you connect Supabase through v0's integration panel, these are automatically set:
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY`
-
-### Optional: Smart Contract Deployment
-
-For blockchain mode, add to `.env.local`:
-
-\`\`\`env
-# Your wallet private key (for deployment only)
-PRIVATE_KEY=your_private_key_here
-
-# Optional: CeloScan API key for contract verification
-CELOSCAN_API_KEY=your_api_key
-\`\`\`
-
-**⚠️ Security:** Never commit `.env.local` to version control!
-
-## Data Storage
-
-CeloSave supports two storage methods:
-
-### Supabase Storage (Default)
-- PostgreSQL database
-- Instant saves, no gas fees
-- Perfect for development and testing
-- Data persists across sessions
-
-### Blockchain Storage (When Contract Deployed)
-- On-chain smart contract storage
-- Real cUSD transactions
-- Decentralized and verifiable
-- Requires gas fees (~$0.001 per transaction)
-
-The app automatically uses blockchain storage when a contract address is configured.
-
-## How It Works
-
-### Creating a Goal
-1. **Supabase Mode:** Goal saved to database instantly
-2. **Blockchain Mode:** Transaction sent to smart contract, confirmed in ~5 seconds
-
-### Saving Money
-1. **Supabase Mode:** Amount updated in database
-2. **Blockchain Mode:** 
-   - Approve cUSD spending (first transaction)
-   - Save to goal (second transaction)
-   - Real cUSD transferred to contract
-
-### Withdrawing
-1. **Supabase Mode:** Amount updated in database
-2. **Blockchain Mode:** cUSD transferred back to your wallet
-
-## Mobile Optimization
-
-CeloSave is fully optimized for mobile devices:
-- Responsive design for all screen sizes
-- Touch-friendly UI components
-- Mobile-specific quick actions
-- Bottom sheet for AI assistant on mobile
-- Optimized for slow connections
-
-## DeFi Integration
-
-View real-time DeFi yields from:
-- **Moola Market**: Low-risk lending protocol
-- **Ubeswap**: DEX with liquidity pools
-
-Each opportunity shows:
-- Current APY
-- Total Value Locked (TVL)
-- Risk level
-- Description and benefits
-
-## AI Assistant
-
-The AI assistant uses OpenAI GPT-4o-mini to:
-- Access real-time blockchain data
-- Analyze user savings patterns
-- Provide personalized recommendations
-- Explain Celo blockchain features
-- Suggest DeFi opportunities
-
-**Tools available to the AI:**
-- `getUserGoals` - Fetch user's savings goals
-- `calculateSavingsRecommendation` - Calculate daily/weekly/monthly savings needed
-- `getCeloDeFiYields` - Get current DeFi yields
-- `analyzeSavingsBehavior` - Analyze saving patterns
-- `explainCeloFeature` - Explain Celo blockchain features
-
-## Smart Contract Features
-
-When deployed, the CeloSave smart contract provides:
-
-- **Goal Management:** Create, update, and delete savings goals
-- **Deposits:** Save cUSD to your goals with automatic tracking
-- **Withdrawals:** Withdraw funds anytime (your money, your control)
-- **Streak Tracking:** Daily saving streaks for motivation
-- **Events:** All actions emit events for transparency
-- **Security:** ReentrancyGuard protection, audited patterns
-
-**Contract Address (Alfajores):** Check `lib/celo/config.ts`
+For detailed instructions, refer to `DEPLOYMENT_GUIDE.md` or `BLOCKCHAIN_SETUP.md`.
 
 ## Troubleshooting
 
-### Goals not saving?
-- **Supabase Mode:** Check Supabase connection in **Connect** section
-- **Blockchain Mode:** Ensure you have testnet CELO for gas fees
+Common issues and solutions:
 
-### "Contract not deployed" error?
-- You're in Supabase mode (this is normal!)
-- To use blockchain mode, follow the deployment guide
-- Or continue using Supabase mode for testing
-
-### Transaction failed?
-- Check you have enough testnet CELO for gas
-- Ensure you're on Alfajores network
-- Try approving more cUSD than you need to save
-
-### AI assistant not working?
-- Ensure `OPENAI_API_KEY` is set in the **Vars** section
-- Check that your OpenAI API key is valid and has credits
-
-### Wallet connection issues?
-- Make sure `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` is set
-- Try using MetaMask or another injected wallet instead
-
-## Testing on Testnet
-
-1. **Get Funds:** Use [Celo Faucet](https://faucet.celo.org/alfajores)
-2. **Connect Wallet:** Use MetaMask with Alfajores network
-3. **Create Goal:** Test goal creation (free in Supabase mode)
-4. **Deploy Contract:** Follow deployment guide for blockchain mode
-5. **Test Transactions:** Save and withdraw with real testnet cUSD
+* **Goals Not Saving:**
+    * *Supabase Mode:* Verify Supabase connection and ensure the migration script (`001_create_savings_goals_table.sql`) has been executed successfully.
+    * *Blockchain Mode:* Confirm sufficient testnet CELO balance for gas fees and check CeloScan for transaction status.
+* **"Contract not deployed" Banner/Errors:** This indicates the app is running in Supabase Mode because a valid contract address is not set in `lib/celo/config.ts`. Deploy the contract or continue using Supabase mode.
+* **Transaction Failures (Blockchain Mode):** Ensure adequate CELO for gas, correct network selection (Alfajores), and sufficient cUSD balance for savings deposits. Check CeloScan for detailed error messages.
+* **AI Assistant Issues:** Verify the `OPENAI_API_KEY` is correctly set in environment variables and the key is valid.
+* **Wallet Connection Problems:** Confirm `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` is set. Note potential WalletConnect allowlist issues in certain preview environments; try MetaMask or an injected wallet if issues persist.
 
 ## Resources
 
-- [Celo Documentation](https://docs.celo.org)
-- [Celo Faucet](https://faucet.celo.org/alfajores)
-- [CeloScan Testnet](https://alfajores.celoscan.io)
-- [Deployment Guide](./DEPLOYMENT_GUIDE.md)
-- [Hardhat Documentation](https://hardhat.org/docs)
+* [Celo Documentation](https://docs.celo.org)
+* [Celo Alfajores Faucet](https://faucet.celo.org/alfajores)
+* [CeloScan Testnet (Alfajores)](https://alfajores.celoscan.io)
+* [Hardhat Documentation](https://hardhat.org/docs)
+* [Supabase Documentation](https://supabase.com/docs)
+* [Wagmi Documentation](https://wagmi.sh)
+* [Vercel AI SDK](https://sdk.vercel.ai/docs)
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome. Please adhere to standard fork-and-pull-request workflows. Ensure code quality, include tests where applicable, and update documentation as needed.
 
 ## License
 
-MIT License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ## Acknowledgments
 
-- Built for the Celo blockchain ecosystem
-- Powered by Vercel AI SDK and OpenAI
-- Database by Supabase
-- Smart contracts with Hardhat
-- UI components from shadcn/ui
-- Icons from Lucide React
-
-## Support
-
-For issues or questions:
-1. Check the Troubleshooting section above
-2. Open an issue on GitHub
-3. Contact the team
-
----
-
-Built with ❤️ for the Celo community
+* Built for the Celo Blockchain community.
+* Utilizes services and libraries from OpenAI, Supabase, Vercel, shadcn/ui, and the broader Web3 ecosystem.
